@@ -1,0 +1,37 @@
+{% if render_mode == "full" or render_mode == "thoughts" or render_mode == "dialogue_target" %}
+{% set dac_state = get_script_property("DAC_CaptureController", "dac_capturecontroller", "CaptureState") %}
+{% if dac_state == 1 %}
+{% set dac_captor = get_script_property("DAC_CaptureController", "dac_capturecontroller", "CaptorName") %}
+{% set dac_is_captor = has_magic_effect(actorUUID, "DAC_CaptorEffect") %}
+{# Everyone standing down around the player is in the truce faction. That is
+   what separates "one of the people holding me" from "a stranger who wandered
+   past" - before this they read identically. #}
+{% set dac_in_truce = is_in_faction(actorUUID, "DAC_TruceFaction") %}
+
+{% if render_mode == "full" or render_mode == "thoughts" %}
+{% if actorUUID == player.UUID %}
+{{ "## Captivity" }}
+{{ player.name }} was beaten down in combat and taken prisoner by {{ dac_captor }} instead of being killed. {{ player.name }} is unarmed, stripped of their gear, and entirely at {{ dac_captor }}'s mercy. Fighting back is not currently an option - {{ dac_captor }}'s people are no longer hostile only because {{ player.name }} is their captive.
+{% else if dac_is_captor %}
+{{ "## Your Prisoner" }}
+{{ decnpc(actorUUID).name }} defeated {{ player.name }} in combat and chose to take them alive rather than finish them. {{ player.name }} is {{ decnpc(actorUUID).name }}'s prisoner: disarmed, stripped of their belongings, and under their control. {{ decnpc(actorUUID).name }} decides what happens to them - question them, put them to work, ransom them, or eventually let them go.
+{% else if dac_in_truce %}
+{{ "## One of Ours" }}
+{{ player.name }} is being held here by {{ dac_captor }}, and {{ decnpc(actorUUID).name }} is part of the group holding them. Not the one who took them - that was {{ dac_captor }} - but on that side of it, and free to treat {{ player.name }} accordingly: talk to them, taunt them, ignore them, or quietly decide they do not much like how this is being handled.
+
+{{ player.name }} is unarmed and cannot leave.
+{% else %}
+{{ "## A Prisoner Nearby" }}
+{{ player.name }} is being held prisoner by {{ dac_captor }}. {{ decnpc(actorUUID).name }} can see they are unarmed and under guard, but has no part in it.
+{% endif %}
+{% endif %}
+
+{% if render_mode == "dialogue_target" %}
+{% if responseTarget and responseTarget.UUID == player.UUID %}
+{{ "## Captivity" }}
+{{ player.name }} is visibly a captive - unarmed, without their equipment, and being held by {{ dac_captor }}. They carry themselves like someone who has been defeated and is not free to leave.
+{% endif %}
+{% endif %}
+
+{% endif %}
+{% endif %}

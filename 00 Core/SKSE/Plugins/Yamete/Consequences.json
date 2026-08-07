@@ -1,0 +1,77 @@
+{
+	"Consequence0" : 
+	{
+		"01_Named" : "Left for Dead",
+		"02_Description" : "You wake up nearby",
+		"03_Pluging" : "Yamete_REDUX.esp",
+		"04_Player" : 50,
+		"05_Followers" : 0,
+		"06_NPC" : 0,
+		"07_Quest" : "Yam_LeftForDead",
+		"08_EventName" : "",
+		"09_EventParam" : "",
+		"10_ScriptName" : "",
+		"11_Function" : "",
+		"12_FunctParam" : ""
+	},
+	"Consequence1" : 
+	{
+		"01_Named" : "Simple Slavery PLUS PLUS",
+		"02_Description" : "You are sold to Simple Slavery",
+		"03_Pluging" : "SimpleSlavery.esp",
+		"04_Player" : 50,
+		"05_Followers" : 0,
+		"06_NPC" : 0,
+		"07_Quest" : "",
+		"08_EventName" : "SSLV Entry",
+		"09_EventParam" : "",
+		"10_ScriptName" : "",
+		"11_Function" : "",
+		"12_FunctParam" : ""
+	},
+	"Consequence2" : 
+	{
+		"01_Named" : "Followers Slavery",
+		"02_Description" : "Transfer Followers to FSM",
+		"03_Pluging" : "Follower Slavery Mod.esp",
+		"04_Player" : 0,
+		"05_Followers" : 50,
+		"06_NPC" : 0,
+		"07_Quest" : "",
+		"08_EventName" : "fsm_enslavefollower",
+		"09_EventParam" : "Form/Actor*Form/None*String/Random_Type*Bool/True*",
+		"10_ScriptName" : "",
+		"11_Function" : "",
+		"12_FunctParam" : ""
+	},
+	"Consequence3" : 
+	{
+		"01_Named" : "Paradise Halls",
+		"02_Description" : "Transfer to PAHE",
+		"03_Pluging" : "paradise_halls.esm",
+		"04_Player" : 0,
+		"05_Followers" : 0,
+		"06_NPC" : 50,
+		"07_Quest" : "",
+		"08_EventName" : "",
+		"09_EventParam" : "",
+		"10_ScriptName" : "Yam_to_External",
+		"11_Function" : "TransferToPahe",
+		"12_FunctParam" : "Form/Actor*"
+	},
+	"Consequence4" :
+	{
+		"01_Named" : "DAC Capture",
+		"02_Description" : "Your captor takes you prisoner and their group stands down",
+		"03_Pluging" : "DAC_CaptureDefeat.esp",
+		"04_Player" : 50,
+		"05_Followers" : 0,
+		"06_NPC" : 0,
+		"07_Quest" : "",
+		"08_EventName" : "DAC_Capture",
+		"09_EventParam" : "",
+		"10_ScriptName" : "",
+		"11_Function" : "",
+		"12_FunctParam" : ""
+	}
+}

@@ -1,0 +1,30 @@
+# Skyrim mod binaries. Declared explicitly rather than left to git's content
+# sniffing: if a .pex or a plugin were ever treated as text, line-ending
+# conversion would corrupt it, and the damage would not show up until the file
+# was installed and the game failed to load the script.
+*.pex   binary
+*.esp   binary
+*.esm   binary
+*.esl   binary
+*.bsa   binary
+*.seq   binary
+*.dll   binary
+*.nif   binary
+*.dds   binary
+*.fuz   binary
+
+# Text. Normalised to LF in the repository; git restores the platform's endings
+# in the working copy, so editing on Windows stays comfortable.
+*.psc     text
+*.json    text
+*.xml     text
+*.yaml    text
+*.yml     text
+*.prompt  text
+*.md      text
+*.ps1     text eol=crlf
+
+# .ini files are read by MCM Helper and by SKSE plugins, some of which are
+# fussier about line endings than they ought to be. Left with CRLF, which is
+# what they ship with and what every Windows tool writes.
+*.ini     text eol=crlf

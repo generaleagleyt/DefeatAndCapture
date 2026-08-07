@@ -1,0 +1,24 @@
+# Tie the rope off where you are standing and walk away.
+#
+# Only whoever is HOLDING the leash can do this - you cannot anchor a rope that
+# is not in your hand. That single restriction is what makes this read as an act
+# rather than a state change.
+name: DACL_AnchorLeash
+description: "Tie the leash you are holding to this spot and leave them here. Use when you want them to stay put and you have something else to do - they will be held where you left them until someone takes the rope again. Do not use it if you intend to keep them with you."
+questEditorId: DACL_LeashQuest
+scriptName: DACL_Leash
+executionFunctionName: AI_AnchorLeash
+parameterMapping:
+  - type: speaker
+    name: akActor
+    description: Speaker Actor parameter (the one tying the leash off)
+enabled: true
+defaultPriority: 4
+eligibilityRules:
+  - conditions:
+      - decoratorName: "dacl_can_anchor"
+        arguments: ["currentActor"]
+        comparisonOperator: "=="
+        expectedValue: "yes"
+    logicalOperator: "AND"
+    required: true

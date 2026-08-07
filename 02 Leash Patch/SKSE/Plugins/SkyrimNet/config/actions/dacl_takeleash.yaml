@@ -1,0 +1,24 @@
+# Pick up the rope the player is already wearing.
+#
+# Covers both cases at once: taking it off an anchor, and taking it out of
+# another NPC's hand. The decorator refuses when it is already theirs, so the
+# action never appears as a no-op.
+name: DACL_TakeLeash
+description: "Take hold of the leash this person is wearing, so they have to come with you. Use when you intend to lead them somewhere, keep them close, or take charge of them from whoever had them. They cannot refuse - the collar is already on them. Do not use it merely to threaten or to comment on the leash."
+questEditorId: DACL_LeashQuest
+scriptName: DACL_Leash
+executionFunctionName: AI_TakeLeash
+parameterMapping:
+  - type: speaker
+    name: akActor
+    description: Speaker Actor parameter (the one taking the leash)
+enabled: true
+defaultPriority: 5
+eligibilityRules:
+  - conditions:
+      - decoratorName: "dacl_can_take"
+        arguments: ["currentActor"]
+        comparisonOperator: "=="
+        expectedValue: "yes"
+    logicalOperator: "AND"
+    required: true

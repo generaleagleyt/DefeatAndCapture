@@ -1,0 +1,115 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="http://qconsulting.ca/fo3/ModConfig5.0.xsd">
+
+  <moduleName>Defeat and Capture</moduleName>
+
+  <!-- The base mod is not optional; it is what the patches patch. -->
+  <requiredInstallFiles>
+    <folder source="00 Core" destination="" priority="0" />
+  </requiredInstallFiles>
+
+  <installSteps order="Explicit">
+    <installStep name="Additional patches">
+      <optionalFileGroups order="Explicit">
+        <group name="Additional patches - each is useful only with the mod it patches" type="SelectAny">
+          <plugins order="Explicit">
+
+            <plugin name="SL Kidnapped Redux Patch">
+              <description><![CDATA[
+When SL Kidnapped Redux finishes its own sequence, it hands you to DAC rather than
+returning you back to original spot. Also adds scene control over what NPC types can 
+participate in scenes and limits which Devious Devices it equips.
+
+Option to exclude captive NPCs from the scenes.
+Option to skip the scenes entirely and jump straight to DAC capture.
+
+Uses its own MCM.
+
+SkyrimNet instegration: 
+- NPC ambushers are aware that they came to capture you.
+- NPCs differentiate between the captors and captives
+
+Needs SL Kidnapped Redux and it's OStim patch. Harmless if absent - the patch simply never activates.
+              ]]></description>
+              <files>
+                <folder source="01 SLKR Patch" destination="" priority="1" />
+              </files>
+              <typeDescriptor>
+                <dependencyType>
+                  <defaultType name="Optional" />
+                  <patterns>
+                    <pattern>
+                      <dependencies operator="And">
+                        <fileDependency file="SL_Kidnapped_Redux.esp" state="Active" />
+                      </dependencies>
+                      <type name="Recommended" />
+                    </pattern>
+                  </patterns>
+                </dependencyType>
+              </typeDescriptor>
+            </plugin>
+
+            <plugin name="Leash Framework Patch">
+              <description><![CDATA[
+On capture, NPCs apply a physical leash that stops you leaving.
+
+Carries its own MCM.
+
+Needs LeashFramework. Harmless if absent - the patch simply never activates.
+              ]]></description>
+              <files>
+                <folder source="02 Leash Patch" destination="" priority="1" />
+              </files>
+              <typeDescriptor>
+                <dependencyType>
+                  <defaultType name="Optional" />
+                  <patterns>
+                    <pattern>
+                      <dependencies operator="And">
+                        <fileDependency file="Leash.esm" state="Active" />
+                      </dependencies>
+                      <type name="Recommended" />
+                    </pattern>
+                  </patterns>
+                </dependencyType>
+              </typeDescriptor>
+            </plugin>
+
+            <plugin name="Dark Arena Patch">
+              <description><![CDATA[
+During Dark Arena pit fights, nearby NPCs know a fight is happening and who is winning, and your
+opponent knows they are facing you. 
+
+EXPERIMENTAL: during the "serve X clients" quest, you can offer your services through SkyrimNet and they should count as a valid client.
+
+Defeat and Capture keeps its capture from firing while a Dark Arena debt is unpaid, and stops the 
+player being killed in a pit fight.
+
+Needs Dark Arena and its OStim patch. Harmless if absent - the quest simply never starts. Technically doesn't need DAC either.
+              ]]></description>
+              <files>
+                <folder source="03 Dark Arena SkyrimNet" destination="" priority="1" />
+              </files>
+              <typeDescriptor>
+                <dependencyType>
+                  <defaultType name="Optional" />
+                  <patterns>
+                    <pattern>
+                      <dependencies operator="And">
+                        <fileDependency file="zDarkArena.esp" state="Active" />
+                      </dependencies>
+                      <type name="Recommended" />
+                    </pattern>
+                  </patterns>
+                </dependencyType>
+              </typeDescriptor>
+            </plugin>
+
+          </plugins>
+        </group>
+      </optionalFileGroups>
+    </installStep>
+  </installSteps>
+
+</config>

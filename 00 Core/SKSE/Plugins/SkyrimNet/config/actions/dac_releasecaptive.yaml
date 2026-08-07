@@ -1,0 +1,19 @@
+name: DAC_ReleaseCaptive
+description: "Let the person you are holding go free. Use when you are satisfied, have been paid or persuaded, feel merciful, or have lost interest in keeping them. They get their freedom back, along with anything you personally took from them and any leash you had on them. Use it when you mean to let them go - not to loosen their bonds or move them."
+questEditorId: DAC_CaptureController
+scriptName: DAC_CaptureController
+executionFunctionName: AI_ReleaseCaptive
+parameterMapping:
+  - type: speaker
+    name: akCaptor
+    description: Speaker Actor parameter (the one doing the holding)
+enabled: true
+defaultPriority: 6
+eligibilityRules:
+  - conditions:
+      - decoratorName: "has_magic_effect"
+        arguments: ["currentActor", "DAC_CaptorEffect"]
+        comparisonOperator: "=="
+        expectedValue: true
+    logicalOperator: "AND"
+    required: true

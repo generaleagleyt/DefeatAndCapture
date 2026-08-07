@@ -1,0 +1,358 @@
+{
+    "$schema":  "https://raw.githubusercontent.com/Exit-9B/MCM-Helper/main/docs/config.schema.json",
+    "modName":  "DefeatAndCapture",
+    "displayName":  "Defeat and Capture",
+    "minMcmVersion":  13,
+    "pluginRequirements":  [
+                               "DefeatAndCapture.esp"
+                           ],
+    "cursorFillMode":  "topToBottom",
+    "pages":  [
+                  {
+                      "pageDisplayName":  "General",
+                      "cursorFillMode":  "topToBottom",
+                      "content":  [
+                                      {
+                                          "type":  "toggle",
+                                          "text":  "Defeat and Capture enabled",
+                                          "help":  "Master switch. OFF = no capture from any route, no keeping you Essential, and if you are captured when you switch it off you are released. Existing Allies persist. ",
+                                          "valueOptions":  {
+                                                               "sourceType":  "ModSettingBool",
+                                                               "defaultValue":  true
+                                                           },
+                                          "id":  "bModEnabled:General"
+                                      },
+                                      {
+                                          "type":  "slider",
+                                          "text":  "Capture when below % HP",
+                                          "help":  "0 = off. Above 0, any hit that leaves you at or below this percentage of your health captures you immediately. At 0 it depends on player being essential and sent into bleedout. Ignored in External-only trigger mode.",
+                                          "valueOptions":  {
+                                                               "min":  0,
+                                                               "max":  90,
+                                                               "step":  5,
+                                                               "formatString":  "{0}%",
+                                                               "sourceType":  "ModSettingFloat",
+                                                               "defaultValue":  0
+                                                           },
+                                          "id":  "fHealthTrigger:General"
+                                      },
+                                      {
+                                          "type":  "header",
+                                          "text":  "DAC Trigger"
+                                      },
+                                      {
+                                          "type":  "enum",
+                                          "text":  "Trigger mode",
+                                          "help":  "Standalone fires capture from the player\u0027s own bleedout and needs no other mod. External waits for another mod to hand off - a defeat framework such as Yamete REDUX, or one of this mod\u0027s companion patches. Both accepts either - only use it if the two never fire on the same knockdown.",
+                                          "valueOptions":  {
+                                                               "sourceType":  "ModSettingInt",
+                                                               "options":  [
+                                                                               "External only (other mods)",
+                                                                               "Standalone (own bleedout)",
+                                                                               "Both"
+                                                                           ],
+                                                               "defaultValue":  1
+                                                           },
+                                          "id":  "iTriggerMode:General"
+                                      },
+                                      {
+                                          "type":  "toggle",
+                                          "text":  "Player Essential (manage bleedout)",
+                                          "help":  "ON: you are kept Essential, so a killing blow drops you into a bleedout instead of killing you. Then you are stood back up at the health value set below. OFF: you can die normally and whatever else you run - Respawn, Acheron, another defeat mod - can take over. Turn it off if another defeat mod already manages bleedout; two mods fighting over it will misbehave.",
+                                          "valueOptions":  {
+                                                               "sourceType":  "ModSettingBool",
+                                                               "defaultValue":  true
+                                                           },
+                                          "id":  "bManageBleedout:General"
+                                      },
+                                      {
+                                          "type":  "slider",
+                                          "text":  "Health after bleedout",
+                                          "help":  "The health you END UP with when the mod lifts you out of bleedout. A defeated player\u0027s health can be deeply negative, so the deficit is cancelled first and this value added on top.",
+                                          "valueOptions":  {
+                                                               "min":  5,
+                                                               "max":  300,
+                                                               "step":  5,
+                                                               "sourceType":  "ModSettingFloat",
+                                                               "defaultValue":  50
+                                                           },
+                                          "id":  "fRecoverHealth:General"
+                                      },
+                                      {
+                                          "type":  "slider",
+                                          "text":  "Captor search radius",
+                                          "help":  "How far around you the mod looks, in game units. 0 searches the whole cell. This is not only about finding your captor - it also decides WHO STANDS DOWN when you are captured, who gets pulled out of combat first, and who is picked up by the periodic re-scan. Too small and enemies a few paces away keep fighting; too large and a group you never met is dragged into the truce. 3000 is roughly a camp or a dungeon room.",
+                                          "valueOptions":  {
+                                                               "min":  0,
+                                                               "max":  8000,
+                                                               "step":  250,
+                                                               "sourceType":  "ModSettingFloat",
+                                                               "defaultValue":  3000
+                                                           },
+                                          "id":  "fSearchRadius:General"
+                                      },
+                                      {
+                                          "type":  "toggle",
+                                          "text":  "Humanoids Only",
+                                          "help":  "ON: a captor must be a person - human, elf, beast race or a vampire. Animals and creatures are skipped. OFF: whatever won the fight takes you, which is what a mudcrab stripping your gear looks like.",
+                                          "valueOptions":  {
+                                                               "sourceType":  "ModSettingBool",
+                                                               "defaultValue":  true
+                                                           },
+                                          "id":  "bHumanoidOnly:General"
+                                      },
+                                      {
+                                          "type":  "header",
+                                          "text":  "DAC Capture"
+                                      },
+                                      {
+                                          "type":  "toggle",
+                                          "text":  "Captor takes your gear",
+                                          "help":  "Everything you are carrying is transferred to your captor when they capture you. Quest items are left alone. Your belongings are returned only in specific cases. Otherwise they stay on whoever took them, so loot or pickpocket them back. Each captor's haul is tracked separately, so being robbed twice does not lose the first lot. If your captor turns into your ally, he gives you your items back.",
+                                          "valueOptions":  {
+                                                               "sourceType":  "ModSettingBool",
+                                                               "defaultValue":  true
+                                                           },
+                                          "id":  "bStripItems:General"
+                                      },
+                                      {
+                                          "type":  "toggle",
+                                          "text":  "Currently captured",
+                                          "help":  "Live state. Switch OFF to free yourself. Switch ON to force a capture by the nearest NPC.",
+                                          "valueOptions":  {
+                                                               "sourceType":  "GlobalValue",
+                                                               "sourceForm":  "DefeatAndCapture.esp|0x800",
+                                                               "defaultValue":  false
+                                                           }
+                                      },
+                                      {
+                                          "type":  "header",
+                                          "text":  "Escape routes (all optional)"
+                                      },
+                                      {
+                                          "type":  "toggle",
+                                          "text":  "Distance breaks the capture",
+                                          "help":  "Off by default. While ON, moving too far from your captor breaks the hold - you get free, but their group turns hostile again. Captor keeps your items.",
+                                          "valueOptions":  {
+                                                               "sourceType":  "ModSettingBool",
+                                                               "defaultValue":  false
+                                                           },
+                                          "id":  "bLeashEnabled:General"
+                                      },
+                                      {
+                                          "type":  "slider",
+                                          "text":  "Safe Distance",
+                                          "help":  "How far you can move from your captor, in game units. Roughly: 1000 = same room, 2500 = a camp, 5000 = across a small hold. You get a warning at three quarters of this.",
+                                          "valueOptions":  {
+                                                               "min":  500,
+                                                               "max":  10000,
+                                                               "step":  250,
+                                                               "sourceType":  "ModSettingFloat",
+                                                               "defaultValue":  2500
+                                                           },
+                                          "id":  "fLeashDistance:General"
+                                      },
+                                      {
+                                          "type":  "slider",
+                                          "text":  "Captor loses interest after (hours)",
+                                          "help":  "Game-hours before your captor gives up and lets you go. This counts as a normal release, so if you were bound, you get the key back. 0 means never - captivity lasts until something else ends it.",
+                                          "valueOptions":  {
+                                                               "min":  0,
+                                                               "max":  72,
+                                                               "step":  1,
+                                                               "sourceType":  "ModSettingFloat",
+                                                               "defaultValue":  0
+                                                           },
+                                          "id":  "fReleaseAfterHours:General"
+                                      },
+                                      {
+                                          "type":  "header",
+                                          "text":  "Surrender"
+                                      },
+                                      {
+                                          "type":  "keymap",
+                                          "text":  "Surrender hotkey",
+                                          "help":  "Press to give up a fight and be taken prisoner on the spot. During a SL Kidnapped Redux ambush it instead stops you resisting so the abduction proceeds without you waiting to be hit - but that part needs the DAC SL Kidnapped Redux patch; without it you are simply captured here and now.",
+                                          "valueOptions":  {
+                                                               "sourceType":  "ModSettingInt",
+                                                               "defaultValue":  0
+                                                           },
+                                          "id":  "iSurrenderKey:General"
+                                      },
+                                      {
+                                          "type":  "toggle",
+                                          "text":  "Captors stay friendly after release",
+                                          "help":  "ON: when a captor lets you go, everyone who was under the truce becomes an ally instead of turning hostile. Use this if you want to roleplay as joining their group. They then behave exactly like anyone you marked with the Mark Ally power, so later you can drop them individually or with Forget all allies. I recommend you turn it off right after using it so future bandit groups don\u0027t get added too. OFF: the truce ends with the captivity and they treat you as an enemy again. Escaping never keeps anyone friendly, whatever this is set to.",
+                                          "valueOptions":  {
+                                                               "sourceType":  "ModSettingBool",
+                                                               "defaultValue":  false
+                                                           },
+                                          "id":  "bKeepFriends:General"
+                                      },
+                                      {
+                                          "type":  "header",
+                                          "text":  "Allies"
+                                      },
+                                      {
+                                          "type":  "toggle",
+                                          "text":  "Grant the Mark Ally power",
+                                          "help":  "Adds a lesser power called Mark Ally. Look at someone and cast it to make them a permanent ally - they stay friendly no matter what happens to everyone else around them. Cast it at the same person again to drop them.",
+                                          "valueOptions":  {
+                                                               "sourceType":  "ModSettingBool",
+                                                               "defaultValue":  false
+                                                           },
+                                          "id":  "bMarkAllyOn:General"
+                                      },
+                                      {
+                                          "type":  "toggle",
+                                          "text":  "Manage allies",
+                                          "help":  "Opens a list with all current Allies, selecting any of them removes them. Alternatively use the Mark Ally power.",
+                                          "valueOptions":  {
+                                                               "sourceType":  "GlobalValue",
+                                                               "sourceForm":  "DefeatAndCapture.esp|0x85D",
+                                                               "defaultValue":  false
+                                                           }
+                                      },
+                                      {
+                                          "type":  "toggle",
+                                          "text":  "Forget all allies",
+                                          "help":  "Drops everyone you have marked as an ally, all at once, and switches itself back off when you close this menu. Allies are otherwise permanent - a release or an escape never clears them.",
+                                          "valueOptions":  {
+                                                               "sourceType":  "GlobalValue",
+                                                               "sourceForm":  "DefeatAndCapture.esp|0x853",
+                                                               "defaultValue":  false
+                                                           }
+                                      },
+                                      {
+                                          "type":  "toggle",
+                                          "text":  "Clear persistent allies",
+                                          "help":  "Allies are held by the game so they are never cleaned up when a dungeon resets - that is what stops a bandit you befriended quietly ceasing to exist, along with everything the AI remembered about them. There are 16 slots. Switch this on to release every held reference at once; it clears itself when you close this menu. Only do this if you no longer care whether your allies survive.",
+                                          "valueOptions":  {
+                                                               "sourceType":  "GlobalValue",
+                                                               "sourceForm":  "DefeatAndCapture.esp|0x855",
+                                                               "defaultValue":  false
+                                                           }
+                                      },
+                                      {
+                                          "type":  "toggle",
+                                          "text":  "Allies hand back what they took",
+                                          "help":  "ON: when someone becomes your ally, anything they personally took from you is returned on the spot.",
+                                          "valueOptions":  {
+                                                               "sourceType":  "ModSettingBool",
+                                                               "defaultValue":  true
+                                                           },
+                                          "id":  "bAllyReturnsGear:General"
+                                      },
+                                      {
+                                          "type":  "enum",
+                                          "text":  "Followers on defeat",
+                                          "help":  "Keep fighting: Followers keep fighting. If they are defeated, they get captured by enemies as well. Pacified with you: Followers stop fighting but are not captured. Captured with you: They instantly surrender and are captured. (Surrender hotkey does this regardless.)",
+                                          "valueOptions":  {
+                                                               "sourceType":  "ModSettingInt",
+                                                               "options":  [
+                                                                               "Keep fighting",
+                                                                               "Pacified with you",
+                                                                               "Captured with you"
+                                                                           ],
+                                                               "defaultValue":  0
+                                                           },
+                                          "id":  "iFollowerMode:General"
+                                      }
+                                  ]
+                  },
+                  {
+                      "pageDisplayName":  "Adult (NSFW)",
+                      "cursorFillMode":  "topToBottom",
+                      "content":  [
+                                      {
+                                          "type":  "text",
+                                          "text":  "These require adult mods",
+                                          "help":  "Everything on this page is off by default and is silently skipped if the mod it needs is not installed. The rest of Capture Defeat works fully without any of it."
+                                      },
+                                      {
+                                          "type":  "header",
+                                          "text":  "Devious Devices"
+                                      },
+                                      {
+                                          "type":  "toggle",
+                                          "text":  "Captor binds you",
+                                          "help":  "Your captor locks leather cuffs and a collar on you and KEEPS THE KEY. Certain releases give you the key, otherwise you keep the restraints on (like escaping). If the Leash patch is installed, switched on, and set to a NECK leash, the collar is skipped so the leash can use that slot - wrists and ankles are still locked and the key still changes hands. If you use SkyrimNet UDNG, you may prefer to leave this off and let the AI decide when to bind you. Or to add more.",
+                                          "valueOptions":  {
+                                                               "sourceType":  "ModSettingBool",
+                                                               "defaultValue":  false
+                                                           },
+                                          "id":  "bRestraints:Adult"
+                                      }
+                                  ]
+                  },
+                  {
+                      "pageDisplayName":  "Compatibility",
+                      "cursorFillMode":  "topToBottom",
+                      "content":  [
+                                      {
+                                          "type":  "header",
+                                          "text":  "SL Kidnapped Redux"
+                                      },
+                                      {
+                                          "type":  "toggle",
+                                          "text":  "Take over when SLKR would release you",
+                                          "help":  "Off by default. SL Kidnapped Redux normally ends a kidnapping by selling you to Simple Slavery or teleporting you back. With this on, you instead stay where you are as a prisoner of the people who took you, and have to get out yourself. Its own scenes play out untouched - this only replaces what happens afterwards. REQUIRES: DefeatAndCapture_SLKR.esp enabled, AND SL Kidnapped Redux\u0027s own \u0027sold into slavery\u0027 chance set lwer then 100 in ITS MCM. Ignored if SLKR is not installed.",
+                                          "valueOptions":  {
+                                                               "sourceType":  "ModSettingBool",
+                                                               "defaultValue":  false
+                                                           },
+                                          "id":  "bAdoptKidnap:Compat"
+                                      },
+                                      {
+                                          "type":  "header",
+                                          "text":  "Debug"
+                                      },
+                                      {
+                                          "type":  "toggle",
+                                          "text":  "Confirm captures",
+                                          "help":  "ON: the mod shows a summary box when a capture lands, and asks first - naming who is taking you and why, with options to Allow or Deny.",
+                                          "valueOptions":  {
+                                                               "sourceType":  "ModSettingBool",
+                                                               "defaultValue":  true
+                                                           },
+                                          "id":  "bShowDebug:Compat"
+                                      },
+                                      {
+                                          "type":  "toggle",
+                                          "text":  "Get back your stuff",
+                                          "help":  "Recovery tool. Hands back everything recorded as taken, from EVERY captor who ever robbed you - not just the most recent. Use it if a captor died somewhere you cannot reach. Does nothing if there is no record, or if they no longer have the items.",
+                                          "valueOptions":  {
+                                                               "sourceType":  "GlobalValue",
+                                                               "sourceForm":  "DefeatAndCapture.esp|0x84C",
+                                                               "defaultValue":  false
+                                                           }
+                                      }
+                                  ]
+                  },
+                  {
+                      "pageDisplayName":  "Experimental",
+                      "cursorFillMode":  "topToBottom",
+                      "content":  [
+                                      {
+                                          "type":  "text",
+                                          "text":  "Experimental - expect rough edges",
+                                          "help":  "Features here are new, lightly tested, and may change or be removed."
+                                      },
+                                      {
+                                          "type":  "header",
+                                          "text":  "Other mods"
+                                      },
+                                      {
+                                          "type":  "toggle",
+                                          "text":  "Simple Slavery when time runs out",
+                                          "help":  "EXPERIMENTAL. Requires the \"Captor loses interest after (hours)\" timer to be set above 0 - with the timer off this does nothing at all. Also does nothing unless Simple Slavery is installed. When the timer runs out, the captivity ends and Simple Slavery is triggered. The effect is to turn the timer from something to wait out into a deadline to escape before.",
+                                          "valueOptions":  {
+                                                               "sourceType":  "ModSettingBool",
+                                                               "defaultValue":  false
+                                                           },
+                                          "id":  "bSellOnTimeout:Experimental"
+                                      }
+                                  ]
+                  }
+              ]
+}

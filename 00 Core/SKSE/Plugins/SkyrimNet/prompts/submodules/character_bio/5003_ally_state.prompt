@@ -1,0 +1,43 @@
+{% if render_mode == "full" or render_mode == "thoughts" or render_mode == "dialogue_target" %}
+{% set dac_ally = is_in_faction(actorUUID, "DAC_AllyFaction") %}
+{% if dac_ally %}
+
+{% if render_mode == "full" or render_mode == "thoughts" %}
+{% if actorUUID != player.UUID %}
+{{ "## You Chose Them" }}
+{{ decnpc(actorUUID).name }} sided with {{ player.name }}. Whoever they used to answer to, that is over - they made a choice, and it was for {{ player.name }}.
+
+This is not friendship out of nowhere and it is not servitude. {{ decnpc(actorUUID).name }} is not a follower and takes no orders; they simply will not raise a hand to {{ player.name }}, and would sooner see them get away with it than not. Whatever they wanted out of the arrangement - safety, a share, spite towards their old company, or something they have not said out loud - it is still theirs to want.
+
+If their former people are nearby, {{ decnpc(actorUUID).name }} has a problem, and knows it.
+{% endif %}
+{% endif %}
+
+{% if render_mode == "dialogue_target" %}
+{% if responseTarget and responseTarget.UUID == player.UUID %}
+{{ "## Your Ally" }}
+{{ player.name }} is the person {{ decnpc(actorUUID).name }} threw in with. Whatever else is true, they are not enemies, and both of them know what that cost.
+{% endif %}
+{% endif %}
+
+{% endif %}
+{% endif %}
+{# Defeat and Capture - personal allies.
+   Deliberately NOT gated on captivity: an ally outlives the captivity that
+   created them, and most of the interesting conversation happens afterwards.
+
+   Three things write DAC_AllyFaction, and nothing else does:
+     1. the player, via the Mark Ally power;
+     2. a mercy release with "captors stay friendly" set;
+     3. the AI, via the dac_becomeally action (AI_BecomeAlly).
+
+   Route 3 was added after this file and is deliberately narrow: the actor must
+   already be in DAC_TruceFaction, so only someone actually holding the player
+   can defect, and it takes a real action call. What is still ruled out is the
+   model NARRATING a change of heart and being believed - saying "I am with you
+   now" writes nothing. That distinction is the point, not "the AI cannot become
+   an ally", which it can.
+
+   Kept separate from 5000_capture_state.prompt because the two describe
+   different things and can both be true: an ally can be standing in the room
+   while the player is still someone else's prisoner. #}

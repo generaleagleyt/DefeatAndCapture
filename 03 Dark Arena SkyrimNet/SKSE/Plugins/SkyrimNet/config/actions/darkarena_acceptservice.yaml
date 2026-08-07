@@ -1,0 +1,36 @@
+# A client agrees to buy the player's services during Dark Arena's service job.
+#
+# ELIGIBILITY IS ONE DECORATOR ON PURPOSE. da_can_serve answers the whole
+# question in Papyrus, where it can be precise: is the service job actually
+# running at the stage that counts, is there no client already assigned, is this
+# actor not the player and not one of the player's own people. Splitting that
+# across YAML rules would mean exposing four decorators and getting the
+# combination right in two places.
+#
+# The "no client already assigned" part matters most. Only one client can be
+# pending at a time, so a second acceptance would quietly replace the first and
+# the player would be walking off with someone the job is no longer tracking.
+#
+# ADDITIVE. Dark Arena's own dialogue is untouched and still works. If the model
+# narrates agreeing without firing this - which it does - the player just asks
+# the normal way and nothing is stuck. That is the whole reason this is an extra
+# route rather than a replacement.
+name: DarkArena_AcceptService
+description: "Agree to pay for the services this person is offering you, here in the arena's bar. Use ONLY when they have actually propositioned you and you want to accept - you are agreeing to go somewhere with them now and to pay for it. Do not use it to flirt, to be friendly, or to say you might be interested later. Use it when you have decided, and mean it."
+questEditorId: DASN_ContextQuest
+scriptName: DASN_Context
+executionFunctionName: AI_AcceptClient
+parameterMapping:
+  - type: speaker
+    name: akActor
+    description: Speaker Actor parameter (the client agreeing)
+enabled: true
+defaultPriority: 5
+eligibilityRules:
+  - conditions:
+      - decoratorName: "da_can_serve"
+        arguments: ["currentActor"]
+        comparisonOperator: "=="
+        expectedValue: "yes"
+    logicalOperator: "AND"
+    required: true

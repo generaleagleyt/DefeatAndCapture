@@ -1,0 +1,53 @@
+# Turn on your own people and side with the prisoner.
+#
+# ELIGIBILITY IS THE WHOLE DESIGN HERE. Offered ONLY to someone who is currently
+# part of a group holding the player captive.
+#
+# The truce faction makes the restriction exact: it contains only actors present
+# while the player is held, and ApplyTruce() explicitly refuses player teammates,
+# so a follower can never be in it. Add the captured check on top and the action
+# exists for precisely one situation - a captor changing sides mid-captivity.
+#
+# The player can also do this by hand with the Mark Ally power, which is the
+# reliable route. This exists so an NPC can reach the same outcome on their own
+# when the scene earns it.
+name: DAC_BecomeAlly
+description: "Turn against your own people and side with the person your side is holding instead. Use ONLY when they have genuinely won you over - talked you round, offered something worth more than your loyalty, or shown you something about your own side you cannot ignore. This is a real betrayal with no way back: your former companions will treat you as a traitor. Do not use it to be friendly, to be merciful, or to agree with them. Use it when you have decided to change sides."
+questEditorId: DAC_CaptureController
+scriptName: DAC_CaptureController
+executionFunctionName: AI_BecomeAlly
+parameterMapping:
+  - type: speaker
+    name: akActor
+    description: Speaker Actor parameter (the one changing sides)
+enabled: true
+defaultPriority: 4
+eligibilityRules:
+  # Must be one of the people currently holding the player. This single rule is
+  # what keeps followers, merchants and passers-by from ever seeing it.
+  - conditions:
+      - decoratorName: "is_in_faction"
+        arguments: ["currentActor", "DAC_TruceFaction"]
+        comparisonOperator: "=="
+        expectedValue: true
+    logicalOperator: "AND"
+    required: true
+
+  # The player must actually be captive. A truce can outlive a captivity when
+  # the player keeps it, and "defecting" makes no sense once nobody is a prisoner.
+  - conditions:
+      - decoratorName: "get_global_value"
+        arguments: ["DAC_Captured"]
+        comparisonOperator: "=="
+        expectedValue: 1
+    logicalOperator: "AND"
+    required: true
+
+  # Not already an ally - nothing left to switch.
+  - conditions:
+      - decoratorName: "is_in_faction"
+        arguments: ["currentActor", "DAC_AllyFaction"]
+        comparisonOperator: "=="
+        expectedValue: false
+    logicalOperator: "AND"
+    required: true

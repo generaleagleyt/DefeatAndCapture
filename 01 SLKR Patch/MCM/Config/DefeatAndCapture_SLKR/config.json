@@ -1,0 +1,617 @@
+{
+    "$schema":  "https://raw.githubusercontent.com/Exit-9B/MCM-Helper/main/docs/config.schema.json",
+    "modName":  "DefeatAndCapture_SLKR",
+    "displayName":  "Defeat and Capture - SLKR",
+    "minMcmVersion":  13,
+    "pluginRequirements":  [
+                               "DefeatAndCapture_SLKR.esp"
+                           ],
+    "cursorFillMode":  "topToBottom",
+    "pages":  [
+                  {
+                      "pageDisplayName":  "About",
+                      "cursorFillMode":  "topToBottom",
+                      "content":  [
+                                      {
+                                          "type":  "header",
+                                          "text":  "Defeat and Capture - SLKR Patch"
+                                      },
+                                      {
+                                          "type":  "text",
+                                          "text":  "Reworks SL Kidnapped Redux",
+                                          "help":  "Adds scene control and joins SLKR to Defeat and Capture. You must also enable the takeover toggle in the BASE DAC mod\u0027s MCM, under Compatibility."
+                                      },
+                                      {
+                                          "type":  "text",
+                                          "text":  "Scene Control",
+                                          "help":  "Two switches controlling whether scenes happen at all, and whether captured followers take part."
+                                      },
+                                      {
+                                          "type":  "text",
+                                          "text":  "Scene Partners",
+                                          "help":  "One toggle per OStim-supported creature type, deciding who may start a scene once you are held. Original didn\u0027t have such choice. All OFF by default."
+                                      }
+                                  ]
+                  },
+                  {
+                      "pageDisplayName":  "Scene Control",
+                      "cursorFillMode":  "topToBottom",
+                      "content":  [
+                                      {
+                                          "type":  "text",
+                                          "text":  "Requires SL Kidnapped Redux",
+                                          "help":  "These change how SL Kidnapped Redux behaves."
+                                      },
+                                      {
+                                          "type":  "header",
+                                          "text":  "Scene switches"
+                                      },
+                                      {
+                                          "type":  "toggle",
+                                          "text":  "Skip forced adult scenes",
+                                          "help":  "ON: you are still ambushed, taken, stripped and held - but no forced SL/OStim scene starts, and the captivity resolves straight into DAC\u0027s own capture. Intended for SkyrimNet users who want the abduction as a roleplay setup with nothing forced.",
+                                          "valueOptions":  {
+                                                               "sourceType":  "ModSettingBool",
+                                                               "defaultValue":  false
+                                                           },
+                                          "id":  "bSkipScenes:Scenes"
+                                      },
+                                      {
+                                          "type":  "toggle",
+                                          "text":  "Player-only Scenes",
+                                          "help":  "ON: no NPC-NPC scenes between captors and captives.",
+                                          "valueOptions":  {
+                                                               "sourceType":  "ModSettingBool",
+                                                               "defaultValue":  false
+                                                           },
+                                          "id":  "bPlayerOnlyScenes:Scenes"
+                                      },
+                                      {
+                                          "type":  "header",
+                                          "text":  "Devious Devices"
+                                      },
+                                      {
+                                          "type":  "text",
+                                          "text":  "SLKR\u0027s own DD option must be on",
+                                          "help":  "These two do nothing unless Devious Devices equipping is enabled in SL Kidnapped Redux\u0027s own MCM."
+                                      },
+                                      {
+                                          "type":  "toggle",
+                                          "text":  "Skip unfitting devices on men",
+                                          "help":  "ON: male prisoners are never given plugs, chastity belts, chastity bras or piercings. They can still be gagged, collared, blindfolded, corseted, cuffed at the arms or legs, and put in an armbinder or yoke. OFF: SL Kidnapped Redux\u0027s original behaviour, anything on anyone.",
+                                          "valueOptions":  {
+                                                               "sourceType":  "ModSettingBool",
+                                                               "defaultValue":  true
+                                                           },
+                                          "id":  "bDDMaleFilter:Scenes"
+                                      },
+                                      {
+                                          "type":  "slider",
+                                          "text":  "Device limit",
+                                          "help":  "How many devices a single captivity may put on you. Set to 0 for no limit.",
+                                          "valueOptions":  {
+                                                               "sourceType":  "ModSettingFloat",
+                                                               "min":  0,
+                                                               "max":  13,
+                                                               "step":  1,
+                                                               "defaultValue":  3
+                                                           },
+                                          "id":  "fDDMax:Scenes"
+                                      }
+                                  ]
+                  },
+                  {
+                      "pageDisplayName":  "Scene Partners A-Dr",
+                      "cursorFillMode":  "topToBottom",
+                      "content":  [
+                                      {
+                                          "type":  "text",
+                                          "text":  "Who may initiate scenes",
+                                          "help":  "Allows you to modify who may START the forced scenes once you are in the dungeon - a different set from who kidnapped you. Wasn\u0027t possible in original."
+                                      },
+                                      {
+                                          "type":  "toggle",
+                                          "text":  "Atronach (Flame)",
+                                          "help":  "ON: this creature type may initiate scenes while you are held. OFF: it is skipped entirely, even if present in the dungeon. Independent of who kidnapped you.",
+                                          "valueOptions":  {
+                                                               "sourceType":  "ModSettingBool",
+                                                               "defaultValue":  false
+                                                           },
+                                          "id":  "bAtronachFlame:Creatures"
+                                      },
+                                      {
+                                          "type":  "toggle",
+                                          "text":  "Atronach (Frost)",
+                                          "help":  "ON: this creature type may initiate scenes while you are held. OFF: it is skipped entirely, even if present in the dungeon. Independent of who kidnapped you.",
+                                          "valueOptions":  {
+                                                               "sourceType":  "ModSettingBool",
+                                                               "defaultValue":  false
+                                                           },
+                                          "id":  "bAtronachFrost:Creatures"
+                                      },
+                                      {
+                                          "type":  "toggle",
+                                          "text":  "Atronach (Storm)",
+                                          "help":  "ON: this creature type may initiate scenes while you are held. OFF: it is skipped entirely, even if present in the dungeon. Independent of who kidnapped you.",
+                                          "valueOptions":  {
+                                                               "sourceType":  "ModSettingBool",
+                                                               "defaultValue":  false
+                                                           },
+                                          "id":  "bAtronachStorm:Creatures"
+                                      },
+                                      {
+                                          "type":  "toggle",
+                                          "text":  "Bear",
+                                          "help":  "ON: this creature type may initiate scenes while you are held. OFF: it is skipped entirely, even if present in the dungeon. Independent of who kidnapped you.",
+                                          "valueOptions":  {
+                                                               "sourceType":  "ModSettingBool",
+                                                               "defaultValue":  false
+                                                           },
+                                          "id":  "bBear:Creatures"
+                                      },
+                                      {
+                                          "type":  "toggle",
+                                          "text":  "Boar",
+                                          "help":  "ON: this creature type may initiate scenes while you are held. OFF: it is skipped entirely, even if present in the dungeon. Independent of who kidnapped you.",
+                                          "valueOptions":  {
+                                                               "sourceType":  "ModSettingBool",
+                                                               "defaultValue":  false
+                                                           },
+                                          "id":  "bBoar:Creatures"
+                                      },
+                                      {
+                                          "type":  "toggle",
+                                          "text":  "Boar (Mount)",
+                                          "help":  "ON: this creature type may initiate scenes while you are held. OFF: it is skipped entirely, even if present in the dungeon. Independent of who kidnapped you.",
+                                          "valueOptions":  {
+                                                               "sourceType":  "ModSettingBool",
+                                                               "defaultValue":  false
+                                                           },
+                                          "id":  "bBoarMount:Creatures"
+                                      },
+                                      {
+                                          "type":  "toggle",
+                                          "text":  "Canine / Dog",
+                                          "help":  "ON: this creature type may initiate scenes while you are held. OFF: it is skipped entirely, even if present in the dungeon. Independent of who kidnapped you.",
+                                          "valueOptions":  {
+                                                               "sourceType":  "ModSettingBool",
+                                                               "defaultValue":  false
+                                                           },
+                                          "id":  "bCanineDog:Creatures"
+                                      },
+                                      {
+                                          "type":  "toggle",
+                                          "text":  "Chaurus",
+                                          "help":  "ON: this creature type may initiate scenes while you are held. OFF: it is skipped entirely, even if present in the dungeon. Independent of who kidnapped you.",
+                                          "valueOptions":  {
+                                                               "sourceType":  "ModSettingBool",
+                                                               "defaultValue":  false
+                                                           },
+                                          "id":  "bChaurus:Creatures"
+                                      },
+                                      {
+                                          "type":  "toggle",
+                                          "text":  "Chaurus Flyer",
+                                          "help":  "ON: this creature type may initiate scenes while you are held. OFF: it is skipped entirely, even if present in the dungeon. Independent of who kidnapped you.",
+                                          "valueOptions":  {
+                                                               "sourceType":  "ModSettingBool",
+                                                               "defaultValue":  false
+                                                           },
+                                          "id":  "bChaurusFlyer:Creatures"
+                                      },
+                                      {
+                                          "type":  "toggle",
+                                          "text":  "Chaurus Reaper",
+                                          "help":  "ON: this creature type may initiate scenes while you are held. OFF: it is skipped entirely, even if present in the dungeon. Independent of who kidnapped you.",
+                                          "valueOptions":  {
+                                                               "sourceType":  "ModSettingBool",
+                                                               "defaultValue":  false
+                                                           },
+                                          "id":  "bChaurusReaper:Creatures"
+                                      },
+                                      {
+                                          "type":  "toggle",
+                                          "text":  "Chicken",
+                                          "help":  "ON: this creature type may initiate scenes while you are held. OFF: it is skipped entirely, even if present in the dungeon. Independent of who kidnapped you.",
+                                          "valueOptions":  {
+                                                               "sourceType":  "ModSettingBool",
+                                                               "defaultValue":  false
+                                                           },
+                                          "id":  "bChicken:Creatures"
+                                      },
+                                      {
+                                          "type":  "toggle",
+                                          "text":  "Cow",
+                                          "help":  "ON: this creature type may initiate scenes while you are held. OFF: it is skipped entirely, even if present in the dungeon. Independent of who kidnapped you.",
+                                          "valueOptions":  {
+                                                               "sourceType":  "ModSettingBool",
+                                                               "defaultValue":  false
+                                                           },
+                                          "id":  "bCow:Creatures"
+                                      },
+                                      {
+                                          "type":  "toggle",
+                                          "text":  "Deer",
+                                          "help":  "ON: this creature type may initiate scenes while you are held. OFF: it is skipped entirely, even if present in the dungeon. Independent of who kidnapped you.",
+                                          "valueOptions":  {
+                                                               "sourceType":  "ModSettingBool",
+                                                               "defaultValue":  false
+                                                           },
+                                          "id":  "bDeer:Creatures"
+                                      },
+                                      {
+                                          "type":  "toggle",
+                                          "text":  "Dragon",
+                                          "help":  "ON: this creature type may initiate scenes while you are held. OFF: it is skipped entirely, even if present in the dungeon. Independent of who kidnapped you.",
+                                          "valueOptions":  {
+                                                               "sourceType":  "ModSettingBool",
+                                                               "defaultValue":  false
+                                                           },
+                                          "id":  "bDragon:Creatures"
+                                      },
+                                      {
+                                          "type":  "toggle",
+                                          "text":  "Dragon Priest",
+                                          "help":  "ON: this creature type may initiate scenes while you are held. OFF: it is skipped entirely, even if present in the dungeon. Independent of who kidnapped you.",
+                                          "valueOptions":  {
+                                                               "sourceType":  "ModSettingBool",
+                                                               "defaultValue":  false
+                                                           },
+                                          "id":  "bDragonPriest:Creatures"
+                                      },
+                                      {
+                                          "type":  "toggle",
+                                          "text":  "Draugr",
+                                          "help":  "ON: this creature type may initiate scenes while you are held. OFF: it is skipped entirely, even if present in the dungeon. Independent of who kidnapped you.",
+                                          "valueOptions":  {
+                                                               "sourceType":  "ModSettingBool",
+                                                               "defaultValue":  false
+                                                           },
+                                          "id":  "bDraugr:Creatures"
+                                      }
+                                  ]
+                  },
+                  {
+                      "pageDisplayName":  "Scene Partners Dw-N",
+                      "cursorFillMode":  "topToBottom",
+                      "content":  [
+                                      {
+                                          "type":  "text",
+                                          "text":  "Who may initiate scenes",
+                                          "help":  "All default to ON, so nothing changes until you switch something off."
+                                      },
+                                      {
+                                          "type":  "toggle",
+                                          "text":  "Dwarven Ballista",
+                                          "help":  "ON: this creature type may initiate scenes while you are held. OFF: it is skipped entirely, even if present in the dungeon. Independent of who kidnapped you.",
+                                          "valueOptions":  {
+                                                               "sourceType":  "ModSettingBool",
+                                                               "defaultValue":  false
+                                                           },
+                                          "id":  "bDwarvenBallista:Creatures"
+                                      },
+                                      {
+                                          "type":  "toggle",
+                                          "text":  "Dwarven Centurion",
+                                          "help":  "ON: this creature type may initiate scenes while you are held. OFF: it is skipped entirely, even if present in the dungeon. Independent of who kidnapped you.",
+                                          "valueOptions":  {
+                                                               "sourceType":  "ModSettingBool",
+                                                               "defaultValue":  false
+                                                           },
+                                          "id":  "bDwarvenCenturion:Creatures"
+                                      },
+                                      {
+                                          "type":  "toggle",
+                                          "text":  "Dwarven Sphere",
+                                          "help":  "ON: this creature type may initiate scenes while you are held. OFF: it is skipped entirely, even if present in the dungeon. Independent of who kidnapped you.",
+                                          "valueOptions":  {
+                                                               "sourceType":  "ModSettingBool",
+                                                               "defaultValue":  false
+                                                           },
+                                          "id":  "bDwarvenSphere:Creatures"
+                                      },
+                                      {
+                                          "type":  "toggle",
+                                          "text":  "Dwarven Spider",
+                                          "help":  "ON: this creature type may initiate scenes while you are held. OFF: it is skipped entirely, even if present in the dungeon. Independent of who kidnapped you.",
+                                          "valueOptions":  {
+                                                               "sourceType":  "ModSettingBool",
+                                                               "defaultValue":  false
+                                                           },
+                                          "id":  "bDwarvenSpider:Creatures"
+                                      },
+                                      {
+                                          "type":  "toggle",
+                                          "text":  "Falmer",
+                                          "help":  "ON: this creature type may initiate scenes while you are held. OFF: it is skipped entirely, even if present in the dungeon. Independent of who kidnapped you.",
+                                          "valueOptions":  {
+                                                               "sourceType":  "ModSettingBool",
+                                                               "defaultValue":  false
+                                                           },
+                                          "id":  "bFalmer:Creatures"
+                                      },
+                                      {
+                                          "type":  "toggle",
+                                          "text":  "Fox",
+                                          "help":  "ON: this creature type may initiate scenes while you are held. OFF: it is skipped entirely, even if present in the dungeon. Independent of who kidnapped you.",
+                                          "valueOptions":  {
+                                                               "sourceType":  "ModSettingBool",
+                                                               "defaultValue":  false
+                                                           },
+                                          "id":  "bFox:Creatures"
+                                      },
+                                      {
+                                          "type":  "toggle",
+                                          "text":  "Gargoyle",
+                                          "help":  "ON: this creature type may initiate scenes while you are held. OFF: it is skipped entirely, even if present in the dungeon. Independent of who kidnapped you.",
+                                          "valueOptions":  {
+                                                               "sourceType":  "ModSettingBool",
+                                                               "defaultValue":  false
+                                                           },
+                                          "id":  "bGargoyle:Creatures"
+                                      },
+                                      {
+                                          "type":  "toggle",
+                                          "text":  "Giant",
+                                          "help":  "ON: this creature type may initiate scenes while you are held. OFF: it is skipped entirely, even if present in the dungeon. Independent of who kidnapped you.",
+                                          "valueOptions":  {
+                                                               "sourceType":  "ModSettingBool",
+                                                               "defaultValue":  false
+                                                           },
+                                          "id":  "bGiant:Creatures"
+                                      },
+                                      {
+                                          "type":  "toggle",
+                                          "text":  "Goat",
+                                          "help":  "ON: this creature type may initiate scenes while you are held. OFF: it is skipped entirely, even if present in the dungeon. Independent of who kidnapped you.",
+                                          "valueOptions":  {
+                                                               "sourceType":  "ModSettingBool",
+                                                               "defaultValue":  false
+                                                           },
+                                          "id":  "bGoat:Creatures"
+                                      },
+                                      {
+                                          "type":  "toggle",
+                                          "text":  "Hagraven",
+                                          "help":  "ON: this creature type may initiate scenes while you are held. OFF: it is skipped entirely, even if present in the dungeon. Independent of who kidnapped you.",
+                                          "valueOptions":  {
+                                                               "sourceType":  "ModSettingBool",
+                                                               "defaultValue":  false
+                                                           },
+                                          "id":  "bHagraven:Creatures"
+                                      },
+                                      {
+                                          "type":  "toggle",
+                                          "text":  "Horker",
+                                          "help":  "ON: this creature type may initiate scenes while you are held. OFF: it is skipped entirely, even if present in the dungeon. Independent of who kidnapped you.",
+                                          "valueOptions":  {
+                                                               "sourceType":  "ModSettingBool",
+                                                               "defaultValue":  false
+                                                           },
+                                          "id":  "bHorker:Creatures"
+                                      },
+                                      {
+                                          "type":  "toggle",
+                                          "text":  "Horse",
+                                          "help":  "ON: this creature type may initiate scenes while you are held. OFF: it is skipped entirely, even if present in the dungeon. Independent of who kidnapped you.",
+                                          "valueOptions":  {
+                                                               "sourceType":  "ModSettingBool",
+                                                               "defaultValue":  false
+                                                           },
+                                          "id":  "bHorse:Creatures"
+                                      },
+                                      {
+                                          "type":  "toggle",
+                                          "text":  "Ice Wraith",
+                                          "help":  "ON: this creature type may initiate scenes while you are held. OFF: it is skipped entirely, even if present in the dungeon. Independent of who kidnapped you.",
+                                          "valueOptions":  {
+                                                               "sourceType":  "ModSettingBool",
+                                                               "defaultValue":  false
+                                                           },
+                                          "id":  "bIceWraith:Creatures"
+                                      },
+                                      {
+                                          "type":  "toggle",
+                                          "text":  "Lurker",
+                                          "help":  "ON: this creature type may initiate scenes while you are held. OFF: it is skipped entirely, even if present in the dungeon. Independent of who kidnapped you.",
+                                          "valueOptions":  {
+                                                               "sourceType":  "ModSettingBool",
+                                                               "defaultValue":  false
+                                                           },
+                                          "id":  "bLurker:Creatures"
+                                      },
+                                      {
+                                          "type":  "toggle",
+                                          "text":  "Mammoth",
+                                          "help":  "ON: this creature type may initiate scenes while you are held. OFF: it is skipped entirely, even if present in the dungeon. Independent of who kidnapped you.",
+                                          "valueOptions":  {
+                                                               "sourceType":  "ModSettingBool",
+                                                               "defaultValue":  false
+                                                           },
+                                          "id":  "bMammoth:Creatures"
+                                      },
+                                      {
+                                          "type":  "toggle",
+                                          "text":  "Netch",
+                                          "help":  "ON: this creature type may initiate scenes while you are held. OFF: it is skipped entirely, even if present in the dungeon. Independent of who kidnapped you.",
+                                          "valueOptions":  {
+                                                               "sourceType":  "ModSettingBool",
+                                                               "defaultValue":  false
+                                                           },
+                                          "id":  "bNetch:Creatures"
+                                      }
+                                  ]
+                  },
+                  {
+                      "pageDisplayName":  "Scene Partners R-W",
+                      "cursorFillMode":  "topToBottom",
+                      "content":  [
+                                      {
+                                          "type":  "text",
+                                          "text":  "Who may initiate scenes",
+                                          "help":  "If every type present is off, no scene runs and the captivity resolves as if scenes were disabled."
+                                      },
+                                      {
+                                          "type":  "toggle",
+                                          "text":  "Rabbit",
+                                          "help":  "ON: this creature type may initiate scenes while you are held. OFF: it is skipped entirely, even if present in the dungeon. Independent of who kidnapped you.",
+                                          "valueOptions":  {
+                                                               "sourceType":  "ModSettingBool",
+                                                               "defaultValue":  false
+                                                           },
+                                          "id":  "bRabbit:Creatures"
+                                      },
+                                      {
+                                          "type":  "toggle",
+                                          "text":  "Riekling",
+                                          "help":  "ON: this creature type may initiate scenes while you are held. OFF: it is skipped entirely, even if present in the dungeon. Independent of who kidnapped you.",
+                                          "valueOptions":  {
+                                                               "sourceType":  "ModSettingBool",
+                                                               "defaultValue":  false
+                                                           },
+                                          "id":  "bRiekling:Creatures"
+                                      },
+                                      {
+                                          "type":  "toggle",
+                                          "text":  "Sabre Cat",
+                                          "help":  "ON: this creature type may initiate scenes while you are held. OFF: it is skipped entirely, even if present in the dungeon. Independent of who kidnapped you.",
+                                          "valueOptions":  {
+                                                               "sourceType":  "ModSettingBool",
+                                                               "defaultValue":  false
+                                                           },
+                                          "id":  "bSabreCat:Creatures"
+                                      },
+                                      {
+                                          "type":  "toggle",
+                                          "text":  "Scrib",
+                                          "help":  "ON: this creature type may initiate scenes while you are held. OFF: it is skipped entirely, even if present in the dungeon. Independent of who kidnapped you.",
+                                          "valueOptions":  {
+                                                               "sourceType":  "ModSettingBool",
+                                                               "defaultValue":  false
+                                                           },
+                                          "id":  "bScrib:Creatures"
+                                      },
+                                      {
+                                          "type":  "toggle",
+                                          "text":  "Seeker",
+                                          "help":  "ON: this creature type may initiate scenes while you are held. OFF: it is skipped entirely, even if present in the dungeon. Independent of who kidnapped you.",
+                                          "valueOptions":  {
+                                                               "sourceType":  "ModSettingBool",
+                                                               "defaultValue":  false
+                                                           },
+                                          "id":  "bSeeker:Creatures"
+                                      },
+                                      {
+                                          "type":  "toggle",
+                                          "text":  "Skeever",
+                                          "help":  "ON: this creature type may initiate scenes while you are held. OFF: it is skipped entirely, even if present in the dungeon. Independent of who kidnapped you.",
+                                          "valueOptions":  {
+                                                               "sourceType":  "ModSettingBool",
+                                                               "defaultValue":  false
+                                                           },
+                                          "id":  "bSkeever:Creatures"
+                                      },
+                                      {
+                                          "type":  "toggle",
+                                          "text":  "Slaughterfish",
+                                          "help":  "ON: this creature type may initiate scenes while you are held. OFF: it is skipped entirely, even if present in the dungeon. Independent of who kidnapped you.",
+                                          "valueOptions":  {
+                                                               "sourceType":  "ModSettingBool",
+                                                               "defaultValue":  false
+                                                           },
+                                          "id":  "bSlaughterfish:Creatures"
+                                      },
+                                      {
+                                          "type":  "toggle",
+                                          "text":  "Spider",
+                                          "help":  "ON: this creature type may initiate scenes while you are held. OFF: it is skipped entirely, even if present in the dungeon. Independent of who kidnapped you.",
+                                          "valueOptions":  {
+                                                               "sourceType":  "ModSettingBool",
+                                                               "defaultValue":  false
+                                                           },
+                                          "id":  "bSpider:Creatures"
+                                      },
+                                      {
+                                          "type":  "toggle",
+                                          "text":  "Spider (Giant)",
+                                          "help":  "ON: this creature type may initiate scenes while you are held. OFF: it is skipped entirely, even if present in the dungeon. Independent of who kidnapped you.",
+                                          "valueOptions":  {
+                                                               "sourceType":  "ModSettingBool",
+                                                               "defaultValue":  false
+                                                           },
+                                          "id":  "bSpiderGiant:Creatures"
+                                      },
+                                      {
+                                          "type":  "toggle",
+                                          "text":  "Spider (Large)",
+                                          "help":  "ON: this creature type may initiate scenes while you are held. OFF: it is skipped entirely, even if present in the dungeon. Independent of who kidnapped you.",
+                                          "valueOptions":  {
+                                                               "sourceType":  "ModSettingBool",
+                                                               "defaultValue":  false
+                                                           },
+                                          "id":  "bSpiderLarge:Creatures"
+                                      },
+                                      {
+                                          "type":  "toggle",
+                                          "text":  "Spriggan",
+                                          "help":  "ON: this creature type may initiate scenes while you are held. OFF: it is skipped entirely, even if present in the dungeon. Independent of who kidnapped you.",
+                                          "valueOptions":  {
+                                                               "sourceType":  "ModSettingBool",
+                                                               "defaultValue":  false
+                                                           },
+                                          "id":  "bSpriggan:Creatures"
+                                      },
+                                      {
+                                          "type":  "toggle",
+                                          "text":  "Troll",
+                                          "help":  "ON: this creature type may initiate scenes while you are held. OFF: it is skipped entirely, even if present in the dungeon. Independent of who kidnapped you.",
+                                          "valueOptions":  {
+                                                               "sourceType":  "ModSettingBool",
+                                                               "defaultValue":  false
+                                                           },
+                                          "id":  "bTroll:Creatures"
+                                      },
+                                      {
+                                          "type":  "toggle",
+                                          "text":  "Vampire Lord",
+                                          "help":  "ON: this creature type may initiate scenes while you are held. OFF: it is skipped entirely, even if present in the dungeon. Independent of who kidnapped you.",
+                                          "valueOptions":  {
+                                                               "sourceType":  "ModSettingBool",
+                                                               "defaultValue":  false
+                                                           },
+                                          "id":  "bVampireLord:Creatures"
+                                      },
+                                      {
+                                          "type":  "toggle",
+                                          "text":  "Werewolf",
+                                          "help":  "ON: this creature type may initiate scenes while you are held. OFF: it is skipped entirely, even if present in the dungeon. Independent of who kidnapped you.",
+                                          "valueOptions":  {
+                                                               "sourceType":  "ModSettingBool",
+                                                               "defaultValue":  false
+                                                           },
+                                          "id":  "bWerewolf:Creatures"
+                                      },
+                                      {
+                                          "type":  "toggle",
+                                          "text":  "Wisp",
+                                          "help":  "ON: this creature type may initiate scenes while you are held. OFF: it is skipped entirely, even if present in the dungeon. Independent of who kidnapped you.",
+                                          "valueOptions":  {
+                                                               "sourceType":  "ModSettingBool",
+                                                               "defaultValue":  false
+                                                           },
+                                          "id":  "bWisp:Creatures"
+                                      },
+                                      {
+                                          "type":  "toggle",
+                                          "text":  "Wispmother",
+                                          "help":  "ON: this creature type may initiate scenes while you are held. OFF: it is skipped entirely, even if present in the dungeon. Independent of who kidnapped you.",
+                                          "valueOptions":  {
+                                                               "sourceType":  "ModSettingBool",
+                                                               "defaultValue":  false
+                                                           },
+                                          "id":  "bWispmother:Creatures"
+                                      }
+                                  ]
+                  }
+              ]
+}

@@ -1,0 +1,64 @@
+{% if render_mode == "full" or render_mode == "thoughts" or render_mode == "dialogue_target" %}
+{% set lf_player_leashed = is_in_faction(player.UUID, "lf_leashed") %}
+{% set lf_holder = is_in_faction(actorUUID, "lf_leasher") %}
+{% set lf_leashed = is_in_faction(actorUUID, "lf_leashed") %}
+{% if lf_player_leashed or lf_holder or lf_leashed %}
+
+{% if render_mode == "full" or render_mode == "thoughts" %}
+
+{% if actorUUID == player.UUID %}
+{{ "## On a Rope" }}
+{{ player.name }} is leashed. Not bound in the abstract - there is a physical line from a collar on them to whoever holds the other end, and when they reach the end of it they are hauled back. Walking away is not a decision {{ player.name }} gets to make.
+
+Within the slack they can move, turn, sit, talk. Past it, no.
+
+{% else if lf_holder %}
+{{ "## You Hold the Rope" }}
+{{ decnpc(actorUUID).name }} is holding {{ player.name }}'s leash - actually holding it, in their hand. {{ player.name }} goes where {{ decnpc(actorUUID).name }} goes, and cannot get further away than the rope allows.
+
+That is a strange kind of power and people wear it differently. Some enjoy it and make sure it shows. Some are businesslike - this is a job and the rope is a tool. Some are uncomfortable and would rather not be holding it at all. {{ decnpc(actorUUID).name }} can talk to {{ player.name }}, ignore them, tug them along, or stop and let them catch up.
+
+{% else if lf_leashed and lf_player_leashed %}
+{{ "## Roped Too" }}
+{{ decnpc(actorUUID).name }} is on a leash as well - the same situation {{ player.name }} is in, held the same way. Whatever they think of it, they are not the one holding the other end either. Two people on ropes have more in common than either has with whoever is holding them.
+
+{% else if lf_leashed %}
+{{ "## On a Rope" }}
+{{ decnpc(actorUUID).name }} is on a leash. There is a collar on them and a line running from it to someone else's hand, and past its length they do not get to keep walking.
+
+{{ player.name }} is not. Whether that gap is worth mentioning - whether {{ decnpc(actorUUID).name }} resents it, wants help, is ashamed of it, or has stopped noticing - is theirs. But they know exactly what they are wearing, and they know {{ player.name }} can see it.
+
+{% else %}
+{{ "## Someone on a Leash" }}
+{{ player.name }} is on a leash, led about by whoever holds it. {{ decnpc(actorUUID).name }} can see it plainly. Pity, amusement, contempt, discomfort or complete indifference - that is theirs to decide, but it is not something a person overlooks.
+
+It is also within {{ decnpc(actorUUID).name }}'s power to cut them loose, whether or not they know {{ player.name }} at all. That is a real choice with real weight - it means crossing whoever put the leash there - and staying out of it is every bit as valid an answer.
+{% endif %}
+
+{% endif %}
+
+{% if render_mode == "dialogue_target" %}
+{% if responseTarget and responseTarget.UUID == player.UUID and lf_player_leashed %}
+{{ "## Leashed" }}
+{{ player.name }} is wearing a collar with a rope running from it. They cannot walk away from this conversation.
+{% endif %}
+{% endif %}
+
+{% endif %}
+{% endif %}
+{# Defeat and Capture - Leash Patch.
+
+   Pure prompt, no script. LeashFramework maintains two ordinary factions:
+     lf_leashed  (000D6A)  everyone with an active leash
+     lf_leasher  (000D6B)  everyone holding one
+
+   So is_in_faction answers all of it with nothing else to plumb, and it reports
+   correctly for leashes this patch never applied - a leash from any other mod
+   reads exactly the same.
+
+   The four cases are deliberately kept apart: being led is not the same as
+   leading, and a fellow prisoner on a rope is not the same as a bystander
+   watching one. Nothing here assumes the player is the leashed one except where
+   it says so, which is why the "roped too" branch works for a captive follower.
+
+   Costs one faction check when nobody nearby is involved with a leash. #}

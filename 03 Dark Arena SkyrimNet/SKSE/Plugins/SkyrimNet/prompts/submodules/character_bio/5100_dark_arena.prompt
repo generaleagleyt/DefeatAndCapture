@@ -1,0 +1,64 @@
+{% if render_mode == "full" or render_mode == "thoughts" or render_mode == "dialogue_target" %}
+{% set da_stage = da_arena_stage(player.UUID) %}
+{% if da_stage %}
+{% set da_role = da_arena_role(actorUUID) %}
+
+{% if render_mode == "full" or render_mode == "thoughts" %}
+
+{% if actorUUID == player.UUID %}
+{% if da_stage == "fighting" %}
+{{ "## In the Pit" }}
+{{ player.name }} is fighting in the pit, in front of a paying crowd. This is not a brawl that broke out - it was arranged, people have put money on it, and everyone above the rail is watching to see how {{ player.name }} handles themselves.
+{% else if da_stage == "lost" %}
+{{ "## Beaten in the Pit" }}
+{{ player.name }} lost their fight, in front of everyone. Whatever happens next, the crowd saw it.
+{% endif %}
+
+{% else if da_role == "opponent" %}
+{% if da_stage == "fighting" %}
+{{ "## Across the Sand" }}
+{{ decnpc(actorUUID).name }} is {{ player.name }}'s opponent in the pit right now. The two of them are fighting in front of a crowd that paid to watch.
+
+This is work, not hatred. {{ decnpc(actorUUID).name }} has no personal quarrel with {{ player.name }} and may well have to share a room with them afterwards - but the fight is real, the floor is watching, and losing badly costs more than pride. How they feel about that is their own: some fighters enjoy it, some are frightened, some have been told how it is supposed to end.
+{% else if da_stage == "lost" %}
+{{ "## You Beat Them" }}
+{{ decnpc(actorUUID).name }} just beat {{ player.name }} in the pit, in front of the crowd. Gracious, smug, indifferent or apologetic - that is up to {{ decnpc(actorUUID).name }}, but it happened and both of them know it.
+{% else %}
+{{ "## Your Match" }}
+{{ decnpc(actorUUID).name }} is matched against {{ player.name }} in the pit. It is arranged and it is coming.
+{% endif %}
+
+{% else if da_role == "staff" %}
+{{ "## Your House" }}
+{{ decnpc(actorUUID).name }} works here and this is their business. {% if da_stage == "fighting" %}{{ player.name }} is in the pit right now, and the crowd's mood - and their money - is the point.{% else if da_stage == "lost" %}{{ player.name }} lost. That has consequences for the house as well as for them.{% else %}{{ player.name }} is billed to fight.{% endif %}
+{% endif %}
+
+{% if da_role == "crowd" %}
+{{ "## The Pit" }}
+There is a fight on. {{ player.name }} is down on the sand{% if da_stage == "lost" %}, and has just lost{% endif %}. {{ decnpc(actorUUID).name }} is here to watch it, like everyone else - the noise, the betting and the spectacle are the whole reason to be in this room.
+{% endif %}
+
+{% endif %}
+
+{% if render_mode == "dialogue_target" %}
+{% if responseTarget and responseTarget.UUID == player.UUID and da_stage == "fighting" %}
+{{ "## Mid-Fight" }}
+{{ player.name }} is in the middle of a pit fight and looks it - winded, marked, and being watched by a room full of people.
+{% endif %}
+{% endif %}
+
+{% endif %}
+{% endif %}
+{# Dark Arena - SkyrimNet context.
+
+   Everything comes from two decorators registered by DASN_Context:
+     da_arena_stage(uuid)  "" | arranged | fighting | over | lost
+     da_arena_role(uuid)   "" | opponent | staff | crowd
+
+   Both read Dark Arena's aDA_Job_Arena quest live - its stage, and who is in
+   its Pitgirl / Lisskit / Uvelori aliases. Reading the ALIAS rather than a fixed
+   NPC is what makes this work at all: pit fights are repeatable and the opponent
+   is a different person each time.
+
+   Nothing here edits Dark Arena, and da_arena_stage returns "" whenever no fight
+   is running - which is nearly always - so the whole file costs one check. #}

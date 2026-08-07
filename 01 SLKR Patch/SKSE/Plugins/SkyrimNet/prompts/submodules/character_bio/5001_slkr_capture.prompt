@@ -1,0 +1,58 @@
+{% if render_mode == "full" or render_mode == "thoughts" or render_mode == "dialogue_target" %}
+{% set slkr_stage = get_global_value("SLKR_Stage_Global") %}
+{% set slkr_ambusher = is_in_faction(actorUUID, "DAC_SLKR_Ambusher") %}
+{% if slkr_stage == 2 or slkr_ambusher %}
+{% set slkr_captor = is_in_faction(actorUUID, "MagicCharmFactionDUPLICATE001") %}
+{% set slkr_fellow = is_in_faction(actorUUID, "VictimFaction") %}
+
+{% if render_mode == "full" or render_mode == "thoughts" %}
+
+{# STAGE 1 IS SL KIDNAPPED REDUX'S IDLE VALUE - it is what SLKR_Stage_Global is
+   reset to AND what the plugin ships. It does NOT mean an ambush is running; the
+   ambush window lives in a script-local KidnappedStatus nothing outside SLKR can
+   read. This gate used to include stage 1, which meant the whole file rendered
+   permanently and the player carried "you have just been jumped" in their
+   context for the entire game.
+
+   So: render only when SLKR is actually HOLDING the player (stage 2), or when
+   this specific actor carries the ambusher tag. That tag is safe to gate on by
+   itself because it is only ever applied to the PlaceActorAtMe copies SLKR
+   deletes right after the teleport - the marked actors stop existing, so the
+   condition cannot go stale.
+
+   There is deliberately no player-side ambush block any more. Nothing outside
+   SLKR can tell "being ambushed" from "idle", and a block that renders always is
+   worse than no block. #}
+
+{% if slkr_ambusher and slkr_stage != 2 %}
+{{ "## The Job" }}
+{{ decnpc(actorUUID).name }} is one of the group closing in on {{ player.name }} right now. The job is to take {{ player.name }} ALIVE - knock them down, land a solid blow, and haul them back to the hideout. A corpse is worth nothing; killing {{ player.name }} means the job failed. Talk like someone doing dirty work they have done before, not like a random bandit picking a fight.
+{% endif %}
+
+{% if slkr_stage == 2 %}
+{% if actorUUID == player.UUID %}
+{{ "## Taken" }}
+{{ player.name }} was ambushed, beaten down and carried off. They are now being held in this place, stripped of their gear and surrounded by their abductors. Escape, negotiation and waiting for an opening are all {{ player.name }} has left.
+{% else if slkr_captor %}
+{{ "## Your Captive" }}
+{{ decnpc(actorUUID).name }} is one of the people holding {{ player.name }} here. {{ player.name }} was taken deliberately - brought to this place rather than killed where they fell - and is unarmed and stripped. {{ decnpc(actorUUID).name }} is a captor, not a bystander, and can do as they please with {{ player.name }}: question them, taunt them, put them to work, or decide their fate.
+{% else if slkr_fellow %}
+{{ "## Another Prisoner" }}
+{{ decnpc(actorUUID).name }} is being held here too, alongside {{ player.name }}. They are a fellow captive, NOT one of the abductors - they are in the same trouble {{ player.name }} is, and have every reason to talk to them as an ally rather than a threat.
+{% else %}
+{{ "## Prisoners Here" }}
+{{ player.name }} is being held captive in this place by the people who took them. {{ decnpc(actorUUID).name }} can see {{ player.name }} is unarmed and not free to leave.
+{% endif %}
+{% endif %}
+
+{% endif %}
+
+{% if render_mode == "dialogue_target" %}
+{% if responseTarget and responseTarget.UUID == player.UUID and slkr_stage == 2 %}
+{{ "## Captivity" }}
+{{ player.name }} is a prisoner here - unarmed, without their equipment, and held by the people who abducted them.
+{% endif %}
+{% endif %}
+
+{% endif %}
+{% endif %}

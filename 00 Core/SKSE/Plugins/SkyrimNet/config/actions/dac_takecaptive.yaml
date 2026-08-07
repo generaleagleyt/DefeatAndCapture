@@ -1,0 +1,56 @@
+# An NPC deciding to take the player prisoner rather than kill or rob them.
+#
+# ---------------------------------------------------------------------------
+# !! IF YOU RUN THE CAPTIVE PLAYER PATCH, EDITING THIS FILE DOES NOTHING. !!
+#
+# That patch ships a file at this exact path and wins by MO2 file priority, so
+# your changes here are simply not the ones loaded. Edit its copy instead:
+#
+#   Defeat and Capture - Captive Player Patch\SKSE\Plugins\SkyrimNet\config\
+#     actions\dac_takecaptive.yaml
+#
+# It is this file plus ONE extra eligibility rule (don't offer the action while
+# Captive Player is already holding you). If you change wording or rules here,
+# change them there too - nothing keeps the two in sync automatically.
+#
+# This is the ONLY file in this mod that any of its patches override.
+# ---------------------------------------------------------------------------
+
+name: DAC_TakeCaptive
+description: "Take this person captive instead of killing or robbing them. ONLY use this after they have GIVEN UP: they said they surrender or yield, begged for mercy, threw down their weapon, or have been beaten helpless and cannot fight on. Their surrender must have ALREADY happened - do not use this to open a fight, to start a conversation, or on your first exchange with someone. Being outnumbered, cornered, or losing is NOT surrender; wait until they actually yield. They are then yours to hold: disarmed, under your control, and your side stops treating them as an enemy. Prefer this over killing whenever someone gives up. Do NOT use it on friends, allies, or someone who is free to walk away."
+questEditorId: DAC_CaptureController
+scriptName: DAC_CaptureController
+executionFunctionName: AI_TakeCaptive
+parameterMapping:
+  - type: speaker
+    name: akCaptor
+    description: Speaker Actor parameter (the one taking them captive)
+enabled: true
+defaultPriority: 8
+eligibilityRules:
+  # This actor is not already holding someone.
+  - conditions:
+      - decoratorName: "has_magic_effect"
+        arguments: ["currentActor", "DAC_CaptorEffect"]
+        comparisonOperator: "=="
+        expectedValue: false
+    logicalOperator: "AND"
+    required: true
+
+  # Nobody has the player yet.
+  #
+  # Without this the action stayed offered to EVERY nearby NPC for the whole
+  # captivity, so they kept choosing it and kept being refused - one "already a
+  # captive" message after another. The magic-effect rule above only stops the
+  # actor who is ALREADY the captor from re-picking it; it says nothing about the
+  # other five people in the room.
+  #
+  # DAC_Captured is this mod's own global, so this rule needs nothing installed
+  # and cannot fail to resolve.
+  - conditions:
+      - decoratorName: "get_global_value"
+        arguments: ["DAC_Captured"]
+        comparisonOperator: "=="
+        expectedValue: 0
+    logicalOperator: "AND"
+    required: true

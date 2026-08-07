@@ -1,0 +1,104 @@
+{
+    "$schema":  "https://raw.githubusercontent.com/Exit-9B/MCM-Helper/main/docs/config.schema.json",
+    "modName":  "DefeatAndCapture_Leash",
+    "displayName":  "Defeat and Capture - Leash",
+    "minMcmVersion":  13,
+    "pluginRequirements":  [
+                               "DefeatAndCapture_Leash.esp"
+                           ],
+    "cursorFillMode":  "topToBottom",
+    "pages":  [
+                  {
+                      "pageDisplayName":  "General",
+                      "cursorFillMode":  "topToBottom",
+                      "content":  [
+                                      {
+                                          "type":  "text",
+                                          "text":  "Requires Leash Framework",
+                                          "help":  "A physical rope that stops you leaving, replacing the base mod\u0027s distance leash while it is on. The base mod\u0027s Safe Distance stands down automatically whenever a leash is attached, so the two never fight."
+                                      },
+                                      {
+                                          "type":  "header",
+                                          "text":  "Leash"
+                                      },
+                                      {
+                                          "type":  "toggle",
+                                          "text":  "Leash you on capture",
+                                          "help":  "Master switch for the whole leash module. ON: you - and any follower captured alongside you - are collared and leashed to your captor the moment you are taken, and AI may put on, take, tie off or cut a leash. OFF: nothing is applied on capture, to you or your followers, AND the four NPC leash actions stop being offered to AI. A leash from another mod is untouched either way. Turning this off does not remove a leash already on you - use Remove all leashes below.",
+                                          "valueOptions":  {
+                                                               "sourceType":  "ModSettingBool",
+                                                               "defaultValue":  true
+                                                           },
+                                          "id":  "bEnabled:General"
+                                      },
+                                      {
+                                          "type":  "toggle",
+                                          "text":  "Remove all leashes",
+                                          "help":  "Cuts every rope right now - yours and your followers\u0027 - and takes off the collar, then switches itself off when you close this menu. Use if an NPC leashes you at an inappropriate moment. This does NOT end the captivity.",
+                                          "valueOptions":  {
+                                                               "sourceType":  "GlobalValue",
+                                                               "sourceForm":  "DefeatAndCapture_Leash.esp|0x806",
+                                                               "defaultValue":  false
+                                                           }
+                                      },
+                                      {
+                                          "type":  "enum",
+                                          "text":  "Attached to",
+                                          "help":  "Your captor: he holds the rope and you are dragged along behind him. The capture spot: the rope is tied off where you were taken.",
+                                          "valueOptions":  {
+                                                               "sourceType":  "ModSettingInt",
+                                                               "options":  [
+                                                                               "Your captor",
+                                                                               "The capture spot"
+                                                                           ],
+                                                               "defaultValue":  0
+                                                           },
+                                          "id":  "iMode:General"
+                                      },
+                                      {
+                                          "type":  "slider",
+                                          "text":  "Leash length",
+                                          "help":  "How far you can get before the rope stops you, in game units. Roughly 100 units is a long stride. Shorter keeps you at your captor\u0027s heel; longer lets you wander the room.",
+                                          "valueOptions":  {
+                                                               "min":  100,
+                                                               "max":  1500,
+                                                               "step":  50,
+                                                               "sourceType":  "ModSettingFloat",
+                                                               "defaultValue":  400
+                                                           },
+                                          "id":  "fMaxLength:General"
+                                      },
+                                      {
+                                          "type":  "slider",
+                                          "text":  "Free distance",
+                                          "help":  "How much of the leash length you can move freely inside before the rope starts pulling, as a percentage. Low values mean the rope hauls you back almost at once; high values mean it only catches you at the very end. Clamped to 10-95: at 0 the rope drags you into your captor and at 100 it never pulls at all.",
+                                          "valueOptions":  {
+                                                               "min":  10,
+                                                               "max":  95,
+                                                               "step":  5,
+                                                               "formatString":  "{0}%",
+                                                               "sourceType":  "ModSettingFloat",
+                                                               "defaultValue":  60
+                                                           },
+                                          "id":  "fSlack:General"
+                                      },
+                                      {
+                                          "type":  "enum",
+                                          "text":  "Leash type",
+                                          "help":  "The item the rope attaches to. All three neck collars sit on slot 45 - the same slot Devious Devices uses for its own collar. The base mod stands aside for you: pick a neck option with this module switched on, and the captor's DD restraints skip THEIR collar so yours fits. Any OTHER mod holding slot 45 will still win, and if your choice cannot be worn the body rope is used instead so a leash is never left attached to nothing.",
+                                          "valueOptions":  {
+                                                               "sourceType":  "ModSettingInt",
+                                                               "options":  [
+                                                                               "Body rope (safe with DD)",
+                                                                               "Neck rope",
+                                                                               "Neck chain",
+                                                                               "Runic collar"
+                                                                           ],
+                                                               "defaultValue":  0
+                                                           },
+                                          "id":  "iCollar:General"
+                                      }
+                                  ]
+                  }
+              ]
+}

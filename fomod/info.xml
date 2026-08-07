@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<fomod>
+  <Name>Defeat and Capture</Name>
+  <Author>Innocento</Author>
+  <Version MachineVersion="1.0.0">1.0.0</Version>
+  <Description><![CDATA[
+Losing a fight doesn't have to mean dying or reloading.
+
+When you go down, the NPC standing over you takes you prisoner instead of finishing you. The
+whole enemy group immediately stops attacking, your gear is taken, and you stay exactly where
+you are - alive, disarmed, and someone else's problem.
+
+Built for SkyrimNet users first: captivity is a state the AI can see, reason about, start and
+end. It works completely on its own too, and the optional modules exist mainly so players
+without an AI framework have something to play against.
+
+Hard requirements: SKSE64, PapyrusUtil.
+For the MCM: SkyUI and MCM Helper.
+Everything else is detected at runtime - absent mods are skipped, not errored.
+  ]]></Description>
+  <Groups>
+    <element>Gameplay Effects and Changes</element>
+    <element>Immersion</element>
+  </Groups>
+</fomod>

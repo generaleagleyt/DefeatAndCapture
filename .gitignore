@@ -1,0 +1,14 @@
+# Windows / editor noise
+Thumbs.db
+desktop.ini
+*.bak
+*~
+
+# Mod Organizer metadata - per-install, never part of the mod
+meta.ini
+
+# Built release archives. The repo is the SOURCE; the installable zip is a
+# GitHub Release asset, built from this tree by build-release.ps1. Committing
+# the artefact as well would mean two copies to keep in step, and the one people
+# download would be whichever was remembered last.
+*.zip

@@ -1,0 +1,29 @@
+# Free them from the leash entirely.
+#
+# Open to anyone who physically could, not to a whitelist. The holder, an ally, a
+# captor showing mercy, or a passing adventurer who was asked nicely.
+#
+# Refused only for those in no position to help: someone on a rope themselves,
+# and a fellow prisoner taken alongside the player.
+#
+# This does NOT end a Defeat and Capture captivity - the rope comes off and the
+# base mod's distance leash resumes - so opening it up costs less than it looks.
+name: DACL_CutLeash
+description: "Free this person from the leash and collar completely. Use when you have decided to let them go, when you are on their side and helping them get away, or when they have asked you for help and you are willing to give it - you do not have to know them. This undoes it entirely - they can walk wherever they like afterwards. Do not use it to loosen the rope or to move them somewhere else."
+questEditorId: DACL_LeashQuest
+scriptName: DACL_Leash
+executionFunctionName: AI_CutLeash
+parameterMapping:
+  - type: speaker
+    name: akActor
+    description: Speaker Actor parameter (the one freeing them)
+enabled: true
+defaultPriority: 4
+eligibilityRules:
+  - conditions:
+      - decoratorName: "dacl_can_cut"
+        arguments: ["currentActor"]
+        comparisonOperator: "=="
+        expectedValue: "yes"
+    logicalOperator: "AND"
+    required: true

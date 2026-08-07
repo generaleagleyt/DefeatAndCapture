@@ -1,0 +1,27 @@
+# Put a leash on a prisoner who does not have one yet.
+#
+# The other three actions all assume a rope already exists. This is the act that
+# creates it - a captor deciding to collar the person they are holding.
+#
+# Gated on the player actually being a captive of THIS actor's group, via Defeat
+# and Capture's truce faction. Without that a passing shopkeeper could collar you
+# across a counter, which is not a thing an AI should be able to decide.
+name: DACL_PutLeash
+description: "Put a collar with a leash on the person you are holding so they cannot wander off. Use when you are one of the people holding them and you want them physically tethered - to lead them, or to stop them slipping away. Only for someone already your captive. Do not use it on anyone who is free."
+questEditorId: DACL_LeashQuest
+scriptName: DACL_Leash
+executionFunctionName: AI_PutLeash
+parameterMapping:
+  - type: speaker
+    name: akActor
+    description: Speaker Actor parameter (the one applying the leash)
+enabled: true
+defaultPriority: 5
+eligibilityRules:
+  - conditions:
+      - decoratorName: "dacl_can_leash"
+        arguments: ["currentActor"]
+        comparisonOperator: "=="
+        expectedValue: "yes"
+    logicalOperator: "AND"
+    required: true
