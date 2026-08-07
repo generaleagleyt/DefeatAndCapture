@@ -1,5 +1,5 @@
 # Defeat and Capture
-Defeat and Capture (DAC) is a defeat mod built with SkyrimNet in mind. Includes death prevention, capture by NPCs (by defeat or AI) and bandit-to-ally conversion. Other mods can initiate DAC capture too. ESL-flagged. Packed in a FOMOD with optional patches for supported mods.
+Defeat and Capture (DAC) is a defeat mod built with SkyrimNet in mind. Includes death prevention, player and follower capture by NPCs (by defeat or by AI) and bandit-to-ally conversion to keep them persistent. Other mods can initiate DAC capture too. ESL-flagged. Packed in a FOMOD with optional patches for supported mods.
 
 ## Disclaimer
 This mod is in ALPHA stage. It was built using [houseCARL](https://www.nexusmods.com/skyrimspecialedition/mods/181738) and Claude Opus 5. While I have a lot of experience with using Synthesis, xEdit and creating patches, this is the first time I was working with scripts. Everything was tested and is (so far) working on my end. There still might be bugs I didn't find. Prompts might need more refining. Make sure to report them here or in my post on SkyrimNet discord.
