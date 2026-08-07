@@ -23,7 +23,11 @@ $root = $PSScriptRoot
 if (-not $OutDir) { $OutDir = Join-Path (Split-Path $root) 'Release' }
 if (-not (Test-Path -LiteralPath $OutDir)) { New-Item -ItemType Directory -Force -Path $OutDir | Out-Null }
 
-$name = if ($Version) { "Defeat And Capture v$Version.zip" } else { "Defeat And Capture.zip" }
+# Dots, not spaces. Release assets get linked, quoted in shell commands and
+# pasted into mod-manager download fields, and a space in the filename breaks or
+# %20-mangles all three. This matches the convention GitHub suggests on the
+# release page: Defeat.And.Capture.v0.1.0-alpha.zip
+$name = if ($Version) { "Defeat.And.Capture.v$Version.zip" } else { "Defeat.And.Capture.zip" }
 $out  = Join-Path $OutDir $name
 
 # Everything except repo plumbing. LICENSE and README.md are harmless in the
