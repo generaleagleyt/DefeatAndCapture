@@ -2,13 +2,16 @@
 <fomod>
   <Name>Defeat and Capture</Name>
   <Author>Innocento</Author>
-  <Version MachineVersion="1.0.0">1.0.0</Version>
+  <Version MachineVersion="0.1.0">0.1.0-alpha</Version>
   <Description><![CDATA[
 Losing a fight doesn't have to mean dying or reloading.
 
-When you go down, the NPC standing over you takes you prisoner instead of finishing you. The
-whole enemy group immediately stops attacking, your gear is taken, and you stay exactly where
-you are - alive, disarmed, and someone else's problem.
+When you go down, the NPC standing over you takes you prisoner instead of finishing you. Their
+whole side immediately stops attacking, your gear is taken, and you stay exactly where you are -
+alive, disarmed, and someone else's problem. Anyone who was fighting THEM keeps fighting: a
+capture is one side winning, not the world agreeing to stop.
+
+ALPHA. Tested and working, but not yet tested widely. Expect rough edges and please report them.
 
 Built for SkyrimNet users first: captivity is a state the AI can see, reason about, start and
 end. It works completely on its own too, and the optional modules exist mainly so players
