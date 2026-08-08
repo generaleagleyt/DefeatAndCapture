@@ -43,7 +43,7 @@ Tested on Skyrim AE only. If using SE and VR, make sure to get appropriate versi
 - [SL Kidnapped Redux SE](https://www.loverslab.com/files/file/10087-sexlab-kidnapped-redux-se/) and 
   [OStim Patch](https://www.loverslab.com/files/file/49431-sexlab-kidnapped-redux-ostim-patch/) - 
   For the DAC SL Kidnapped Redux Patch. You get captured and stay in the dungeon instead of being sent away.
-- [Captive Player](https://www.loverslab.com/files/file/43497-captive-player/) - NOT SHIPPED YET. It contains an editer CP script. I messaged the author in case I need a permission for that. No reply yet.
+- [Captive Player](https://www.loverslab.com/files/file/43497-captive-player/) - NOT SHIPPED YET. It contains an edited CP script. I messaged the author in case I need a permission for that. No reply yet.
   For the DAC Captive Player Patch. You get captured and stay in the dungeon instead of being sent away.
   Optional SkyrimNet awareness - NPCs differenciate between captives and captors.
 - [Leash Framework](https://www.loverslab.com/files/file/50377-leash-framework/) - 
