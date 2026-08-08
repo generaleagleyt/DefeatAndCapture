@@ -1,18 +1,22 @@
 # Defeat and Capture
 Defeat and Capture (DAC) is a defeat mod built with SkyrimNet in mind. Includes death prevention, player and follower capture by NPCs (by defeat or by AI) and bandit-to-ally conversion to keep them persistent. Other mods can initiate DAC capture too. ESL-flagged. Packed in a FOMOD with optional patches for supported mods.
 
+SkyrimNet side includes new AI actions and NPC awareness. 
+
 ## Disclaimer
 This mod is in ALPHA stage. It was built using [houseCARL](https://www.nexusmods.com/skyrimspecialedition/mods/181738) and Claude Opus 5. While I have a lot of experience with using Synthesis, xEdit and creating patches, this is the first time I was working with scripts. Everything was tested and is (so far) working on my end. There still might be bugs I didn't find. Prompts might need more refining. Make sure to report them here or in my post on SkyrimNet discord.
 
+**TESTED ON SKYRIM AE ONLY. SE and VR should work.**
+
 # Overview
-When you are defeated, the closest hostile NPC will capture you. The whole enemy group will stop attacking, your gear is taken, and you stay where you are. If the group was fighting a third party, they keep fighting together.
+When you are defeated, the enemy that last hit you will capture you. The enemy group will stop attacking, your gear is taken, and you stay where you are, at mercy of your new captors. (If the group was fighting a third party, they keep fighting each other.)
 
 This allows you to roleplay with AI NPCs from SkyrimNet. They will be aware that you (and your followers) were defeated and will act accordingly. They differentiate between a defeat and a surrender. NPCs can trigger the capture on their own too. If you tell someone you yield or surrender, they can trigger a new DAC_TakeCaptive action to trigger DAC's defeat and capture. If persuaded, they can also release you and give you your stuff back. An enemy can become your ally - join your side. If you are currently captured, they can help to free you.
 
 Works well with SeverActions' new mechanic where most enemies are not hostile. Works without it too.
 
 ## Requirements
-Tested on Skyrim AE only.
+Tested on Skyrim AE only. If using SE and VR, make sure to get appropriate versions of the mods below.
 
 **Hard:** 
 - [Skyrim Script Extender (SKSE64)](https://www.nexusmods.com/skyrimspecialedition/mods/30379)
