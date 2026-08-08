@@ -6,7 +6,7 @@ SkyrimNet side includes new AI actions and NPC awareness.
 ## Disclaimer
 This mod is in ALPHA stage. It was built using [houseCARL](https://www.nexusmods.com/skyrimspecialedition/mods/181738) and Claude Opus 5. While I have a lot of experience with using Synthesis, xEdit and creating patches, this is the first time I was working with scripts. Everything was tested and is (so far) working on my end. There still might be bugs I didn't find. Prompts might need more refining. Make sure to report them here or in my post on SkyrimNet discord.
 
-**TESTED ON SKYRIM AE ONLY. SE and VR should work.**
+## TESTED ON SKYRIM AE ONLY. SE and VR should work.
 
 # Overview
 When you are defeated, the enemy that last hit you will capture you. The enemy group will stop attacking, your gear is taken, and you stay where you are, at mercy of your new captors. (If the group was fighting a third party, they keep fighting each other.)
@@ -43,7 +43,7 @@ Tested on Skyrim AE only. If using SE and VR, make sure to get appropriate versi
 - [SL Kidnapped Redux SE](https://www.loverslab.com/files/file/10087-sexlab-kidnapped-redux-se/) and 
   [OStim Patch](https://www.loverslab.com/files/file/49431-sexlab-kidnapped-redux-ostim-patch/) - 
   For the DAC SL Kidnapped Redux Patch. You get captured and stay in the dungeon instead of being sent away.
-- [Captive Player](https://www.loverslab.com/files/file/43497-captive-player/) - 
+- [Captive Player](https://www.loverslab.com/files/file/43497-captive-player/) - NOT SHIPPED YET. It contains an editer CP script. I messaged the author in case I need a permission for that. No reply yet.
   For the DAC Captive Player Patch. You get captured and stay in the dungeon instead of being sent away.
   Optional SkyrimNet awareness - NPCs differenciate between captives and captors.
 - [Leash Framework](https://www.loverslab.com/files/file/50377-leash-framework/) - 
