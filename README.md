@@ -48,6 +48,7 @@ Tested on Skyrim AE only. If using SE and VR, make sure to get appropriate versi
   Optional SkyrimNet awareness - NPCs differenciate between captives and captors.
 - [Leash Framework](https://www.loverslab.com/files/file/50377-leash-framework/) - 
   For the DAC Leash Patch. On capture, a leash is placed on you and your followers, connected to your captor. Prevents you from walking away.
+  (WIP) AI actions that allow to equip or unequip a leash, also to attach it to the ground and to pick it back up.
   Optional SkyrimNet actions - NPCs can add or remove leashes.
 - [Dark Arena](https://www.loverslab.com/files/file/11946-dark-arena-sse/) and 
   [Dark Arena Fixes and OStim](https://www.loverslab.com/files/file/33930-dark-arena-fixes-and-ostim/) - 
