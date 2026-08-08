@@ -87,7 +87,7 @@ Surrendering with DAC's Surrender hotkey makes your whole group surrender, not j
 
 ## Allies are persistent
 
-If you manage to persuade a bandit to betray their group and join you instead, they can become your Ally. However, most enemies in Skyrim are generic actors spawned from a list. Their references are deleted when the cell resets — roughly ten in-game days, thirty for a cleared dungeon. 
+If you manage to persuade a bandit to betray their group and join you instead, they can become your Ally. However, most enemies in Skyrim are generic actors spawned from a list. Their references are deleted by either dynamic reference cleanup or when their cell resets — roughly ten in-game days, thirty for a cleared dungeon. 
 
 If you want this Ally to become a more important character in your story, the Ally status prevents it from being deleted. There are 16 Ally slots in total. You can have more allies then that, but only 16 will persist. You will get a notification if this list becomes full. 
 
